@@ -9,5 +9,3 @@ func update_look_direction(direction):
 func update_move_direction(direction):
 	move_direction = direction
 
-func play_animation(animation_name):
-	pass # Replace with function body.

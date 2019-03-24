@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://character/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-4.png" type="Texture" id=2]
@@ -23,16 +23,18 @@
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-3.png" type="Texture" id=21]
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-5.png" type="Texture" id=22]
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-6.png" type="Texture" id=23]
-[ext_resource path="res://character/body_state_machine/player_body/player_body_state_machine.gd" type="Script" id=24]
-[ext_resource path="res://character/body_state_machine/motion/on_floor/idle.gd" type="Script" id=25]
-[ext_resource path="res://character/body_state_machine/motion/on_floor/move.gd" type="Script" id=26]
-[ext_resource path="res://character/body_state_machine/motion/in_air/jump.gd" type="Script" id=27]
-[ext_resource path="res://character/body_state_machine/motion/in_air/fall.gd" type="Script" id=28]
+[ext_resource path="res://input_handler/input_communicator/player_input_communicator/player_input_communicator.gd" type="Script" id=24]
+[ext_resource path="res://input_handler/player_input_handler.gd" type="Script" id=25]
+[ext_resource path="res://character/body_state_machine/player_body/player_body_state_machine.gd" type="Script" id=26]
+[ext_resource path="res://character/body_state_machine/motion/on_floor/idle.gd" type="Script" id=27]
+[ext_resource path="res://character/body_state_machine/motion/on_floor/move.gd" type="Script" id=28]
+[ext_resource path="res://character/body_state_machine/motion/in_air/jump.gd" type="Script" id=29]
+[ext_resource path="res://character/body_state_machine/motion/in_air/fall.gd" type="Script" id=30]
 
-[sub_resource type="CapsuleShape2D" id=10]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 28.1135
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 resource_name = "attack"
 length = 0.8
 step = 0.2
@@ -49,7 +51,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "crouch"
 length = 0.001
 tracks/0/type = "value"
@@ -65,7 +67,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 9 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "fall"
 length = 1.2
 loop = true
@@ -83,7 +85,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 10 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "hurt"
 length = 0.001
 tracks/0/type = "value"
@@ -99,8 +101,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 12 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "idle"
+[sub_resource type="Animation" id=6]
 length = 0.8
 loop = true
 step = 0.2
@@ -117,8 +118,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 13 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "jump"
+[sub_resource type="Animation" id=7]
 length = 0.9
 step = 0.3
 tracks/0/type = "value"
@@ -150,8 +150,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "move"
+[sub_resource type="Animation" id=9]
 loop = true
 step = 0.2
 tracks/0/type = "value"
@@ -167,8 +166,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 2 ), ExtResource( 22 ), ExtResource( 23 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "right"
+[sub_resource type="Animation" id=10]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Body:flip_h")
@@ -189,38 +187,47 @@ tracks/0/keys = {
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource( 10 )
+shape = SubResource( 1 )
 
 [node name="AnimationHandler" parent="." index="2"]
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="AnimationPlayer" parent="AnimationHandler" index="0"]
-anims/attack = SubResource( 7 )
-anims/crouch = SubResource( 4 )
-anims/fall = SubResource( 5 )
-anims/hurt = SubResource( 6 )
-anims/idle = SubResource( 1 )
-anims/jump = SubResource( 2 )
+anims/attack = SubResource( 2 )
+anims/crouch = SubResource( 3 )
+anims/fall = SubResource( 4 )
+anims/hurt = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/jump = SubResource( 7 )
 anims/left = SubResource( 8 )
-anims/move = SubResource( 3 )
-anims/right = SubResource( 9 )
+anims/move = SubResource( 9 )
+anims/right = SubResource( 10 )
 
-[node name="BodyStateMachine" parent="." index="3"]
+[node name="PlayerInputCommunicator" type="Node" parent="." index="3"]
 script = ExtResource( 24 )
+
+[node name="PlayerInputHandler" type="Node" parent="." index="4"]
+script = ExtResource( 25 )
+
+[node name="BodyStateMachine" parent="." index="5"]
+editor/display_folded = true
+script = ExtResource( 26 )
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="BodyStateMachine" index="0"]
-script = ExtResource( 25 )
-
-[node name="Move" type="Node" parent="BodyStateMachine" index="1"]
-script = ExtResource( 26 )
-
-[node name="Jump" type="Node" parent="BodyStateMachine" index="2"]
 script = ExtResource( 27 )
 
-[node name="Fall" type="Node" parent="BodyStateMachine" index="3"]
+[node name="Move" type="Node" parent="BodyStateMachine" index="1"]
 script = ExtResource( 28 )
 
+[node name="Jump" type="Node" parent="BodyStateMachine" index="2"]
+script = ExtResource( 29 )
+
+[node name="Fall" type="Node" parent="BodyStateMachine" index="3"]
+script = ExtResource( 30 )
+
+[connection signal="got_input" from="PlayerInputHandler" to="PlayerInputCommunicator" method="communicate_input"]
 [connection signal="state_entered" from="BodyStateMachine/Idle" to="AnimationHandler" method="play_animation"]
 [connection signal="state_entered" from="BodyStateMachine/Move" to="AnimationHandler" method="play_animation"]
 [connection signal="state_entered" from="BodyStateMachine/Jump" to="." method="play_animation"]
