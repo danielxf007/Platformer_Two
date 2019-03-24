@@ -188,9 +188,11 @@ script = ExtResource( 28 )
 
 [node name="Jump" type="Node" parent="BodyStateMachine" index="2"]
 script = ExtResource( 29 )
+HIERARCHY = 1
 
 [node name="Fall" type="Node" parent="BodyStateMachine" index="3"]
 script = ExtResource( 30 )
+HIERARCHY = 1
 
 [connection signal="jumped" from="PlayerInputCommunicator" to="BodyStateMachine/Move" method="exit"]
 [connection signal="jumped" from="PlayerInputCommunicator" to="BodyStateMachine/Idle" method="exit"]

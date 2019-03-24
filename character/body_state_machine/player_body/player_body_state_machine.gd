@@ -12,5 +12,8 @@ func _change_state(state_name):
 	if not _active:
 		return
 	if state_name in ["Jump", "Fall"]:
+		var state = states_map[state_name]
+		if states_stack[0].HIERARCHY == state.HIERARCHY:
+			states_stack.pop_front()
 		states_stack.push_front(null)
 	._change_state(state_name)
