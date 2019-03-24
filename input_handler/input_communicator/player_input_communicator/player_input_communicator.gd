@@ -1,6 +1,6 @@
 extends "res://input_handler/input_communicator/input_communicator.gd"
 signal crouched()
-signal attacked_mele()
+signal attacked_mele(mele_attack)
 
 func communicate_input(input_data):
 	communicate_movement_input_direction(input_data)
@@ -23,4 +23,4 @@ func communicate_crouch(input_data):
 
 func communicate_attack_mele(input_data):
 	if input_data.mele_attack:
-		emit_signal("attacked_mele")
+		emit_signal("attacked_mele", "MeleAttack")
