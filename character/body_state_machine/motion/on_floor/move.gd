@@ -7,10 +7,13 @@ export(float) var FRICTION_FORCE = 0.0
 var speed_x = 0.0
 
 func enter():
+	active_state = true
 	emit_signal("state_entered", "move")
 
 func exit(next_state):
-	emit_signal("finished", next_state)
+	if active_state:
+		active_state = false
+		emit_signal("finished", next_state)
 
 func update(delta):
 	var direction = get_move_direction()

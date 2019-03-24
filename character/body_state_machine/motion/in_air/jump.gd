@@ -6,11 +6,14 @@ var on_air_time = 0.0
 var jump_time
 
 func enter():
+	active_state = true
 	jump_time = calculate_jump_time(VERTICAL_SPEED)
 	emit_signal("state_entered", "jump")
 
 func exit(next_state):
-	emit_signal("finished", next_state)
+	if active_state:
+		active_state = false
+		emit_signal("finished", next_state)
 
 func update(delta):
 	on_air_time += delta
@@ -18,7 +21,6 @@ func update(delta):
 	if on_air_time >= jump_time:
 		on_air_time = 0.0
 		exit("Fall")
-
 	else:
 		make_jump(direction, delta)
 		if owner.is_on_floor():
@@ -30,7 +32,7 @@ func update(delta):
 
 func make_jump(direction, delta):
 	var velocity = Vector2(direction.x * HORIZONTAL_SPEED, 
-	VERTICAL_SPEED * delta)
+	- VERTICAL_SPEED)
 	owner.move_and_slide(velocity, FLOOR_NORMAL)
 
 func calculate_jump_time(v_speed):

@@ -11,12 +11,11 @@ func communicate_input(input_data):
 func communicate_movement_input_direction(input_data):
 	var movement_direction = Vector2()
 	movement_direction.x = int(input_data.move_right) - int(input_data.move_left)
-	movement_direction.y = int(input_data.move_down) - int(input_data.move_up)
 	emit_signal("moved", movement_direction)
 
 func communicate_jump(input_data):
 	if input_data.jump:
-		emit_signal("jumped")
+		emit_signal("jumped", "Jump")
 
 func communicate_crouch(input_data):
 	if input_data.crouch:

@@ -1,7 +1,7 @@
 extends Node
 
 signal moved(move_direction)
-signal jumped()
+signal jumped(jump)
 
 func communicate_input(input_data):
 	return

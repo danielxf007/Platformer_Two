@@ -4,10 +4,13 @@ export(float) var HORIZONTAL_SPEED = 100.0
 var vertical_speed = 0.0
 
 func enter():
+	active_state = true
 	emit_signal("state_entered", "fall")
 
 func exit(next_state):
-	emit_signal("finished", next_state)
+	if active_state:
+		active_state = false
+		emit_signal("finished", next_state)
 
 func update(delta):
 	var direction = get_move_direction()
