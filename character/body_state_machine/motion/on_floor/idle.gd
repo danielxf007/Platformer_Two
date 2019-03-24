@@ -2,7 +2,7 @@ extends "res://character/body_state_machine/motion/motion.gd"
 
 
 func enter():
-	return
+	emit_signal("state_entered","idle")
 
 func exit(next_state):
 	emit_signal("finished", next_state)

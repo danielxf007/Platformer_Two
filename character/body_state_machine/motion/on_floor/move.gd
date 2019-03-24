@@ -7,7 +7,7 @@ export(float) var FRICTION_FORCE = 0.0
 var speed_x = 0.0
 
 func enter():
-	return
+	emit_signal("state_entered", "move")
 
 func exit(next_state):
 	emit_signal("finished", next_state)

@@ -4,7 +4,7 @@ export(float) var HORIZONTAL_SPEED = 100.0
 var vertical_speed = 0.0
 
 func enter():
-	return
+	emit_signal("state_entered", "fall")
 
 func exit(next_state):
 	emit_signal("finished", next_state)

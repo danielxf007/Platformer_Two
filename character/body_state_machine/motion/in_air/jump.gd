@@ -7,6 +7,7 @@ var jump_time
 
 func enter():
 	jump_time = calculate_jump_time(VERTICAL_SPEED)
+	emit_signal("state_entered", "jump")
 
 func exit(next_state):
 	emit_signal("finished", next_state)
