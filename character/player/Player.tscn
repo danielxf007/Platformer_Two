@@ -1,7 +1,7 @@
 [gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://character/Character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://art/Sprites/hero/hero-run/hero-run-1.png" type="Texture" id=2]
+[ext_resource path="res://art/Sprites/hero/hero-attack/hero-attack-5.png" type="Texture" id=2]
 [ext_resource path="res://input_handler/input_communicator/player_input_communicator/player_input_communicator.gd" type="Script" id=3]
 [ext_resource path="res://input_handler/player_input_handler.gd" type="Script" id=4]
 [ext_resource path="res://character/animation_handler/player_animation_handler/player_animation_handler.gd" type="Script" id=5]
@@ -19,7 +19,7 @@
 [ext_resource path="res://art/Sprites/hero/hero-attack/hero-attack-2.png" type="Texture" id=17]
 [ext_resource path="res://art/Sprites/hero/hero-attack/hero-attack-3.png" type="Texture" id=18]
 [ext_resource path="res://art/Sprites/hero/hero-attack/hero-attack-4.png" type="Texture" id=19]
-[ext_resource path="res://art/Sprites/hero/hero-attack/hero-attack-5.png" type="Texture" id=20]
+[ext_resource path="res://art/Sprites/hero/hero-run/hero-run-1.png" type="Texture" id=20]
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-2.png" type="Texture" id=21]
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-3.png" type="Texture" id=22]
 [ext_resource path="res://art/Sprites/hero/hero-run/hero-run-4.png" type="Texture" id=23]
@@ -32,8 +32,8 @@
 [ext_resource path="res://character/body_state_machine/motion/in_air/fall.gd" type="Script" id=30]
 [ext_resource path="res://character/body_state_machine/combat/mele_attack.gd" type="Script" id=31]
 
-[sub_resource type="CapsuleShape2D" id=1]
-height = 26.5602
+[sub_resource type="CapsuleShape2D" id=14]
+height = 29.4303
 
 [sub_resource type="CapsuleShape2D" id=2]
 height = 35.9048
@@ -378,9 +378,6 @@ height = 16.284
 [sub_resource type="CapsuleShape2D" id=13]
 height = 22.6287
 
-[sub_resource type="CapsuleShape2D" id=14]
-height = 29.4303
-
 [sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Body:texture")
@@ -392,34 +389,34 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ]
+"values": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 2 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Weapon:position")
+tracks/1/path = NodePath("../CollisionShape2D:shape")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -21.7865, -0.711977 ), Vector2( 0, 0 ), Vector2( 16.1521, -1.13916 ), Vector2( 16.1521, -1.13916 ), Vector2( 16.1521, -1.13916 ) ]
+"values": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Weapon/DamageZone/CollisionPolygon2D:disabled")
+tracks/2/path = NodePath("../CollisionShape2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.9 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ Vector2( 0, 7.741 ), Vector2( 2.5, 11.272 ), Vector2( 3, 11.039 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../CollisionShape2D:shape")
+tracks/3/path = NodePath("../CollisionShape2D:shape:height")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -428,10 +425,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ]
+"values": [ 29.7141, 22.6287, 20.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("../CollisionShape2D:position")
+tracks/4/path = NodePath("../CollisionShape2D:shape:radius")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -440,32 +437,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 0, 7.741 ), Vector2( 2.5, 11.272 ), Vector2( 3, 11.039 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("../CollisionShape2D:shape:height")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 29.7141, 22.6287, 20.0 ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("../CollisionShape2D:shape:radius")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
 "values": [ 9.97778, 10.0, 10.0 ]
 }
+
+[sub_resource type="CapsuleShape2D" id=1]
 
 [sub_resource type="Animation" id=16]
 loop = true
@@ -480,7 +455,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ]
+"values": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../CollisionShape2D:shape")
@@ -538,43 +513,30 @@ collision_layer = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( 0, 7.825 )
-shape = SubResource( 1 )
+position = Vector2( 3, 11.039 )
+shape = SubResource( 14 )
 
-[node name="Weapon" type="Position2D" parent="." index="2"]
-position = Vector2( -21.7865, -0.711977 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="DamageZone" type="Area2D" parent="Weapon" index="0"]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Weapon/DamageZone" index="0"]
-polygon = PoolVector2Array( 33.795, 4.73855, 10.0341, -0.495138, -0.433308, -0.495138, -0.433308, 7.66942, 10.4528, 7.66942, 20.6061, 7.66942, 21.2342, 6.51801, 30.6548, 6.72735, 30.9688, 5.57594 )
-
-[node name="OnFloorRight" parent="." index="3"]
+[node name="OnFloorRight" parent="." index="2"]
 position = Vector2( 8, 25 )
 enabled = true
 cast_to = Vector2( 0, 25 )
 
-[node name="OnFloorLeft" parent="." index="4"]
+[node name="OnFloorLeft" parent="." index="3"]
 position = Vector2( -8, 25 )
 enabled = true
 cast_to = Vector2( 0, 25 )
 
-[node name="Ceiling" parent="." index="5"]
+[node name="Ceiling" parent="." index="4"]
 enabled = true
 cast_to = Vector2( 0, -25 )
 
-[node name="PlayerInputCommunicator" type="Node" parent="." index="6"]
+[node name="PlayerInputCommunicator" type="Node" parent="." index="5"]
 script = ExtResource( 3 )
 
-[node name="PlayerInputHandler" type="Node" parent="." index="7"]
+[node name="PlayerInputHandler" type="Node" parent="." index="6"]
 script = ExtResource( 4 )
 
-[node name="AnimationHandler" parent="." index="8"]
+[node name="AnimationHandler" parent="." index="7"]
 script = ExtResource( 5 )
 
 [node name="AnimationPlayer" parent="AnimationHandler" index="0"]
@@ -589,7 +551,7 @@ anims/move = SubResource( 16 )
 [node name="AnimationTime" parent="AnimationHandler" index="1"]
 one_shot = true
 
-[node name="BodyStateMachine" parent="." index="9"]
+[node name="BodyStateMachine" parent="." index="8"]
 script = ExtResource( 26 )
 initial_state = NodePath("Idle")
 
