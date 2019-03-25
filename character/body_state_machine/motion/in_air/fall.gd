@@ -1,6 +1,8 @@
 extends "res://character/body_state_machine/motion/motion.gd"
 
 export(float) var HORIZONTAL_SPEED = 100.0
+onready var on_floor_ray_right = owner.get_node("OnFloorRight")
+onready var on_floor_ray_left = owner.get_node("OnFloorLeft")
 var vertical_speed = 0.0
 
 func enter():
@@ -15,7 +17,7 @@ func exit(next_state):
 func update(delta):
 	var direction = get_move_direction()
 	make_fall(direction, delta)
-	if owner.is_on_floor():
+	if on_floor_ray_right.is_colliding() or on_floor_ray_left.is_colliding():
 		vertical_speed = 0.0
 		exit("Previous")
 

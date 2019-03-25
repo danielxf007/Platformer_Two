@@ -4,7 +4,9 @@ export(float) var MAX_WALKING_SPEED = 150.0
 export(float) var MIN_WALKING_SPEED = 10.0
 export(float) var WALKING_FORCE = 1000.0
 export(float) var FRICTION_FORCE = 0.0
-export(float) var MAX_ANGLE_SLOPE
+export(float) var MAX_ANGLE_SLOPE = 60
+onready var on_floor_ray_right = owner.get_node("OnFloorRight")
+onready var on_floor_ray_left = owner.get_node("OnFloorLeft")
 var speed_x = 0.0
 
 func enter():
@@ -23,13 +25,13 @@ func update(delta):
 		exit("Idle")
 	else:
 		move(direction, delta)
-	if not owner.is_on_floor():
+	if not on_floor_ray_right.is_colliding() and not on_floor_ray_left.is_colliding():
 		speed_x = 0.0
 		exit("Fall")
 
 func move(direction, delta):
 	calculate_speed(delta)
-	var velocity = Vector2(direction.x * speed_x, GRAVITY_FORCE * delta)
+	var velocity = Vector2(direction.x * speed_x, GRAVITY_FORCE)
 	owner.move_and_slide(velocity, FLOOR_NORMAL, MAX_ANGLE_SLOPE)
 
 func calculate_speed(delta):

@@ -2,6 +2,9 @@ extends "res://character/body_state_machine/motion/motion.gd"
 
 export(float) var VERTICAL_SPEED = 150
 export(float) var HORIZONTAL_SPEED = 100
+onready var ceiling_ray = owner.get_node("Ceiling")
+onready var on_floor_ray_right = owner.get_node("OnFloorRight")
+onready var on_floor_ray_left = owner.get_node("OnFloorLeft")
 var on_air_time = 0.0
 var jump_time
 
@@ -23,12 +26,12 @@ func update(delta):
 		exit("Fall")
 	else:
 		make_jump(direction, delta)
-		if owner.is_on_floor():
-			on_air_time = 0.0
-			exit("Previous")
-		if owner.is_on_ceiling():
-			on_air_time = 0.0
-			exit("Fall")
+	if on_floor_ray_right.is_colliding() or on_floor_ray_left.is_colliding():
+		on_air_time = 0.0
+		exit("Previous")
+	if ceiling_ray.is_colliding():
+		on_air_time = 0.0
+		exit("Fall")
 
 func make_jump(direction, delta):
 	var velocity = Vector2(direction.x * HORIZONTAL_SPEED, 
