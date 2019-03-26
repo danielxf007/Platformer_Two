@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://character/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art/Sprites/hero/hero-attack/hero-attack-5.png" type="Texture" id=2]
@@ -32,8 +32,10 @@
 [ext_resource path="res://character/body_state_machine/motion/in_air/fall.gd" type="Script" id=30]
 [ext_resource path="res://character/body_state_machine/combat/mele_attack.gd" type="Script" id=31]
 
-[sub_resource type="CapsuleShape2D" id=14]
-height = 29.4303
+[sub_resource type="CapsuleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=17]
+radius = 3.46556
 
 [sub_resource type="CapsuleShape2D" id=2]
 height = 35.9048
@@ -378,7 +380,7 @@ height = 16.284
 [sub_resource type="CapsuleShape2D" id=13]
 height = 22.6287
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Body:texture")
 tracks/0/interp = 1
@@ -401,7 +403,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ]
+"values": [ SubResource( 12 ), SubResource( 13 ), SubResource( 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("../CollisionShape2D:position")
@@ -439,8 +441,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [ 9.97778, 10.0, 10.0 ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("../AttackPoint/AttackArea/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=15]
 
 [sub_resource type="Animation" id=16]
 loop = true
@@ -467,7 +481,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 1 ) ]
+"values": [ SubResource( 15 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("../CollisionShape2D:position")
@@ -514,29 +528,38 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 3, 11.039 )
-shape = SubResource( 14 )
+shape = SubResource( 1 )
 
-[node name="OnFloorRight" parent="." index="2"]
+[node name="AttackPoint" parent="." index="2"]
+editor/display_folded = true
+position = Vector2( 44.1669, 4.36764 )
+
+[node name="CollisionShape2D" parent="AttackPoint/AttackArea" index="0"]
+shape = SubResource( 17 )
+disabled = true
+
+[node name="OnFloorRight" parent="." index="3"]
 position = Vector2( 8, 25 )
 enabled = true
 cast_to = Vector2( 0, 25 )
 
-[node name="OnFloorLeft" parent="." index="3"]
+[node name="OnFloorLeft" parent="." index="4"]
 position = Vector2( -8, 25 )
 enabled = true
 cast_to = Vector2( 0, 25 )
 
-[node name="Ceiling" parent="." index="4"]
+[node name="Ceiling" parent="." index="5"]
 enabled = true
 cast_to = Vector2( 0, -25 )
 
-[node name="PlayerInputCommunicator" type="Node" parent="." index="5"]
+[node name="PlayerInputCommunicator" type="Node" parent="." index="6"]
 script = ExtResource( 3 )
 
-[node name="PlayerInputHandler" type="Node" parent="." index="6"]
+[node name="PlayerInputHandler" type="Node" parent="." index="7"]
 script = ExtResource( 4 )
 
-[node name="AnimationHandler" parent="." index="7"]
+[node name="AnimationHandler" parent="." index="8"]
+editor/display_folded = true
 script = ExtResource( 5 )
 
 [node name="AnimationPlayer" parent="AnimationHandler" index="0"]
@@ -545,13 +568,14 @@ anims/fall = SubResource( 5 )
 anims/hurt = SubResource( 7 )
 anims/idle = SubResource( 9 )
 anims/jump = SubResource( 11 )
-anims/mele_attack = SubResource( 15 )
+anims/mele_attack = SubResource( 14 )
 anims/move = SubResource( 16 )
 
 [node name="AnimationTime" parent="AnimationHandler" index="1"]
 one_shot = true
 
-[node name="BodyStateMachine" parent="." index="8"]
+[node name="BodyStateMachine" parent="." index="9"]
+editor/display_folded = true
 script = ExtResource( 26 )
 initial_state = NodePath("Idle")
 
@@ -576,12 +600,12 @@ HIERARCHY = 1
 script = ExtResource( 31 )
 HIERARCHY = 1
 
-[connection signal="attacked_mele" from="PlayerInputCommunicator" to="BodyStateMachine/Idle" method="exit"]
 [connection signal="attacked_mele" from="PlayerInputCommunicator" to="BodyStateMachine/Move" method="exit"]
+[connection signal="attacked_mele" from="PlayerInputCommunicator" to="BodyStateMachine/Idle" method="exit"]
 [connection signal="attacked_mele" from="PlayerInputCommunicator" to="BodyStateMachine/Jump" method="exit"]
 [connection signal="attacked_mele" from="PlayerInputCommunicator" to="BodyStateMachine/Fall" method="exit"]
-[connection signal="jumped" from="PlayerInputCommunicator" to="BodyStateMachine/Idle" method="exit"]
 [connection signal="jumped" from="PlayerInputCommunicator" to="BodyStateMachine/Move" method="exit"]
+[connection signal="jumped" from="PlayerInputCommunicator" to="BodyStateMachine/Idle" method="exit"]
 [connection signal="moved" from="PlayerInputCommunicator" to="." method="update_move_direction"]
 [connection signal="got_input" from="PlayerInputHandler" to="PlayerInputCommunicator" method="communicate_input"]
 [connection signal="animation_finished" from="AnimationHandler" to="BodyStateMachine/MeleAttack" method="_on_AnimationHandler_animation_finished"]

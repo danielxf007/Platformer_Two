@@ -10,8 +10,10 @@ func update_look_direction(direction):
 		return
 	elif direction.x > 0:
 		$Body.flip_h = false
+		$AttackPoint.position.x = abs($AttackPoint.position.x)
 	elif direction.x < 0:
 		$Body.flip_h = true
+		$AttackPoint.position.x = -abs($AttackPoint.position.x)
 	look_direction = direction
 
 func update_move_direction(direction):
